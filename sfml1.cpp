@@ -1,5 +1,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+
 #include "Player.h"
 #include "World1.h"
 using namespace std;
@@ -20,19 +21,26 @@ public:
 	{
 		setup();
 		sf::Clock clock;
+		sf::Clock deltaClock;
 		while(window.isOpen())
 		{
 			timer = clock.restart();
+			deltatime += deltaClock.restart().asSeconds();
+
+			//cout << deltatime << endl;
 			controlInput();
 			update();
 			render();
+
 		}
 	}
 private:
 	//sf::Texture tlucas;
 	//sf::Sprite lucas;
+	float deltatime = 0;
 	bool up, down, left, right;
 	float chrspeed = 100.f;
+	int dir; //Direction for animation
 	int x = 0;
 
 	void controlInput()
@@ -47,8 +55,11 @@ private:
 					break;
 				case sf::Event::KeyPressed:
 					handleInput(event.key.code);
+					dir = lucas->inputTranslate(event.key.code, true);
+					deltatime = lucas->animate(dir, 0.3, deltatime);
 					break;
 				case sf::Event::KeyReleased:
+					deltatime = 0;
 					cancelInput();
 					break;
 			}
@@ -57,7 +68,9 @@ private:
 
 	void update()
 	{
+
 		moveCharacter(lucas->sprite, timer);
+
 	}
 
 	void render()
@@ -68,6 +81,7 @@ private:
 		window.draw(world.background);
 		window.draw(lucas->sprite);
 		window.display();
+
 	}
 
 	void handleInput(sf::Keyboard::Key key)
@@ -130,7 +144,7 @@ private:
 	void setup()	//Function to setup everything before running loop
 	{
 		cancelInput();
-		// initLucas();
+		lucas->currentimage = sf::Vector2u(1,1);
 		world.initBackground();
 		window.setView(world.wview);
 

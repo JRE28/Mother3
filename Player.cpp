@@ -1,4 +1,5 @@
 #include <iostream>
+#include <unistd.h>
 #include "Player.h"
 #include <SFML/Graphics.hpp>
 using namespace std;
@@ -72,6 +73,7 @@ int Player::inputTranslate(sf::Keyboard::Key key, bool pressed)
 }
 float Player::animate(int dir, float stime, float dtime)
 {
+
   switch(dir)
   {
     case UP:
@@ -91,7 +93,10 @@ float Player::animate(int dir, float stime, float dtime)
 
   if(dtime >= stime)
   {
+    cout << stime << endl;
     dtime-= stime;
+
+    cout << stime << endl;
     currentimage.x = xa;
 
     if(xa < imagecount.x -1)

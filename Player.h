@@ -13,17 +13,17 @@ public:
   sf::Sprite sprite;
   int inputTranslate(sf::Keyboard::Key key, bool pressed);
   float animate(int dir, float stime, float dtime);
-private:
+  sf::Vector2u currentimage;
   bool setSprite(string dir, bool smooth);
   bool setSprite(string dir);
+private:
   sf::Texture texture;
   sf::Vector2u size;
   /*Animation components*/
   int xa = 0; //X spritesheet pos
   sf::IntRect uvrect;
-  sf::Vector2u direct;
+  sf::Vector2u direct; //Represents direction of movement
   sf::Vector2u imagecount;
-  sf::Vector2u currentimage;
 };
 
 #endif
