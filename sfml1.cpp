@@ -22,22 +22,26 @@ public:
 		setup();
 		sf::Clock clock;
 		sf::Clock deltaClock;
+		sf::Time dtimeraw;
 		while(window.isOpen())
 		{
 			timer = clock.restart();
-			deltatime += deltaClock.restart().asSeconds();
-
-			//cout << deltatime << endl;
+			dtimeraw = deltaClock.restart();
+			if(pressed)
+			{
+				deltatime += dtimeraw.asSeconds();
+			} else {deltatime = 0; cout << deltatime << endl;}
+			cout << deltatime << endl;
 			controlInput();
 			update();
 			render();
-
 		}
 	}
 private:
 	//sf::Texture tlucas;
 	//sf::Sprite lucas;
 	float deltatime = 0;
+	bool pressed = false;
 	bool up, down, left, right;
 	float chrspeed = 100.f;
 	int dir; //Direction for animation
@@ -54,12 +58,13 @@ private:
 					window.close();
 					break;
 				case sf::Event::KeyPressed:
+					pressed = true;
 					handleInput(event.key.code);
 					dir = lucas->inputTranslate(event.key.code, true);
 					deltatime = lucas->animate(dir, 0.3, deltatime);
 					break;
 				case sf::Event::KeyReleased:
-					deltatime = 0;
+					pressed = false;
 					cancelInput();
 					break;
 			}
