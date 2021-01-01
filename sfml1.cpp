@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "World1.h"
+#include "Player.h"
 using namespace std;
 
 int scrX = 1200;
@@ -25,6 +26,7 @@ public:
 		}
 	}
 private:
+	Player protag("lsheet.png", 100, 100, sf::Vector2u(4,4));
 	sf::Texture tlucas;
 	sf::Sprite lucas;
 	bool up, down, left, right;

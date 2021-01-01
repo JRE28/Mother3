@@ -87,7 +87,7 @@ float Player::animate(int dir, float stime, float dtime)
       currentimage.y = 2;
       break;
   }
-  //currentimage = sf::Vector2u(x, y
+  //currentimage = sf::Vector2u(x, y)
 
   if(dtime >= stime)
   {
@@ -102,5 +102,5 @@ float Player::animate(int dir, float stime, float dtime)
   }
 
   sprite.setTextureRect(sf::IntRect(currentimage.x*uvrect.width, currentimage.y*uvrect.height, uvrect.width, uvrect.height));
-  return dtime;
+  return dtime; //Returns deltatime
 }
