@@ -20,18 +20,18 @@ public:
 	void run()
 	{
 		setup();
-		sf::Clock clock;
-		sf::Clock deltaClock;
-		sf::Time dtimeraw;
+		sf::Clock clock; //Clock for movement deltatime
+		sf::Clock deltaClock; //Clock for animation deltatime
+		sf::Time dtimeraw; //Serves as an intermediary between clock and deltatime
 		while(window.isOpen())
 		{
-			timer = clock.restart();
-			dtimeraw = deltaClock.restart();
-			if(pressed)
+			timer = clock.restart(); //Restarts clock and saves value
+			dtimeraw = deltaClock.restart(); //Restarts dtime clock and saves value
+			if(pressed) //If key is pressed, animation is on, adding dtime to delta
 			{
 				deltatime += dtimeraw.asSeconds();
-			} else {deltatime = 0; cout << deltatime << endl;}
-			cout << deltatime << endl;
+				//Turns on animation, and this way deltatime doesn't accumulate and bug
+			} else {deltatime = 0;}
 			controlInput();
 			update();
 			render();
