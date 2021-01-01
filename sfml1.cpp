@@ -1,16 +1,19 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "World1.h"
 #include "Player.h"
+#include "World1.h"
 using namespace std;
 
 int scrX = 1200;
 int scrY = 600;
 sf::RenderWindow window(sf::VideoMode(scrX, scrY), "Lucas running"); //Creates window with fixed size
 
+
 class Game
 {
 public:
+	Player* lucas = new Player("lsheet.png", 10, 10, sf::Vector2u(4,4));
+
 	sf::Time timer;
 	World world;
 	void run()
@@ -26,9 +29,8 @@ public:
 		}
 	}
 private:
-	Player protag("lsheet.png", 100, 100, sf::Vector2u(4,4));
-	sf::Texture tlucas;
-	sf::Sprite lucas;
+	//sf::Texture tlucas;
+	//sf::Sprite lucas;
 	bool up, down, left, right;
 	float chrspeed = 100.f;
 	int x = 0;
@@ -55,16 +57,16 @@ private:
 
 	void update()
 	{
-		moveCharacter(lucas, timer);
+		moveCharacter(lucas->sprite, timer);
 	}
 
 	void render()
 	{
 		window.clear(sf::Color::White);
 		window.setView(world.wview);
-		world.wview.setCenter(lucas.getPosition().x, lucas.getPosition().y);
+		world.wview.setCenter(lucas->sprite.getPosition().x, lucas->sprite.getPosition().y);
 		window.draw(world.background);
-		window.draw(lucas);
+		window.draw(lucas->sprite);
 		window.display();
 	}
 
@@ -128,19 +130,20 @@ private:
 	void setup()	//Function to setup everything before running loop
 	{
 		cancelInput();
-		initLucas();
+		// initLucas();
 		world.initBackground();
 		window.setView(world.wview);
 
 	}
 
-	void initLucas()
+/*	void initLucas()
 	{
 		tlucas.loadFromFile("Lucas.png");
 		lucas.setTexture(tlucas);
 		lucas.setPosition(100,100);
 		lucas.setScale(sf::Vector2f(0.25,0.25));
 	}
+	*/
 };
 
 

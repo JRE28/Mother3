@@ -7,8 +7,7 @@ using namespace std;
 class Player
 {
 public:
-
-  Player(string tname, float xi, float yi, sf::Vector2u imgcount);
+  Player(const string tname, float xi, float yi, sf::Vector2u imgcount);
   float x, y;
   static const int UP = 1,DOWN = -1,LEFT = -10, RIGHT = 10;
   sf::Sprite sprite;
@@ -25,8 +24,6 @@ private:
   sf::Vector2u direct;
   sf::Vector2u imagecount;
   sf::Vector2u currentimage;
-
-
 };
 
 #endif

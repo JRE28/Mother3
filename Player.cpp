@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 using namespace std;
 
-Player::Player(string tname, float xi, float yi, sf::Vector2u imgcount)
+Player::Player(const string tname, float xi, float yi, sf::Vector2u imgcount)
 {
   setSprite(tname);
   imagecount.x = imgcount.x;
