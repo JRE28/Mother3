@@ -1,0 +1,172 @@
+Compile and linking:
+	1. g++ -c main.cpp -> [main.o]
+	2. g++ main.o -o main (-lsfml-graphics -lsfml-window -lsfml-system)...
+Executing: ./main
+
+Mapped texture in 2D = Sprite
+The less textures you use, the better
+
+Graphics:
+	Including library
+	- #include <SFML/Graphics.hpp>
+	Creating a new window
+	- sf::RenderWindow window(sf::VideoMode(height, width), ["Window Title"]);
+	Event handler
+	- sf::Event event
+	Texture
+	- sf::Texture texture
+	Sprites 
+	- sf::Sprite sprite
+	Fonts
+	- sf::Font font
+	Text
+	- sf::Text text
+	Shapes:
+		Circle
+		- sf::CircleShape circle(50.f)
+		Rectangle
+		- sf::RectangleShape rect(sf::Vector2f(120.f,50.f))
+	Antialise
+	sf::ContextSettings settings -> Declare settings class
+	settings.antialisingLevel = 8 -> Antialising level
+	sf::RenderWindow window(sf::VideoMode(800,600), "title", sf::Style::Default, settings)
+    Vertex
+    - sf::Vertex vertex(sf::Vector2f(10.f,50.f)[position], sf::Color::Red [Color], sf::Vector2f(100.f, 100.f) [texture coordinates (?)])
+                        
+
+	sf::RenderWindow functions:
+		<window>.isOpen() -> Returns yes if open, used with a while loop to execute program during window life
+		<window>.close() -> Close window
+		<window>.pollEvent(<event>) -> check window's events
+		<window>.clear(sf::Color::<color>) -> Clear screen with <color> color
+		<window>.display() -> updates frame
+		<window>.draw(<sprite>) -> prints object in screen
+
+	sf::Texture functions:
+		<texture>.loadFromFile(<imagename.png>, [sf::IntRect(10, 10, 32, 32) -> 32x32 rectangle starting at (10,10)])
+		Creates a texture loaded from an image in a 32x32 rectangle starting at (10,10)
+		<texture>.create(200, 200) -> Creates a 200x200 empty texture
+		<texture>.setSmooth(true) -> Smoothen the texture boundaries
+		<texture>.setRepeated(true) -> allows a texture to be repeatedly tiled within a single sprite, if
+		sprite's rectangle is bigger than the texture, filling in.
+
+	sf::Sprite functions:
+		<sprite>.setTexture(texture) -> Sets a texture on a sprite
+		<sprite>.setTextureRect(sf::IntRect(10,10,32,32)) -> Sprite has a 32x32 texture rectangle starting at (10,10)
+		<sprite>.setColor(sf::Color([red, green, blue, alpha(transparency)])) -> Changes sprite texture color
+		<sprite>.setPosition(sf::Vector2f(10.f, 50.f)) -> changes absolute position
+		<sprite>.move(sf::Vector2f(5.f, 10.f)) -> Moves (relative position)
+		<sprite>.setRotation(90.f) -> Rotates absolute angle
+		<sprite>.rotate(15.f) -> Relative rotation
+		<sprite>.setScale(sf::Vector2f(0.5f, 2.f)) -> absolute scale
+		<sprite>.scale(sf::Vector2f(1.5f, 3.f)) -> relative scale
+		<sprite>.setOrigin(sf::Vector2f(25.f, 25.f)) -> Sets origin of sprite transformation (def=high left corner)
+
+	sf::Font functions:
+		<font>.loadFromFile("arial.ttf) -> loading font from file
+
+	sf::Text functions:
+		<text>.setFont(<font>) -> Set font to text
+		<text>.setString("String") -> Set text to container
+		<text>.setCharacterSize(25) -> set text size in pixels
+		<text>.setFillColor(sf::Color::<color>) -> Set text color
+		<text>.setStyle(sf::Text::Bold | sf::Text::Underlined) -> Set text to "bold" and "underlined"
+		[window.draw(<text>)] [Text can also be transformed as sprites]
+		[For non ASCII codes, write large string: L"Whatever"]
+		
+	sf::View functions:
+		<view>(const FloatRect rectangle)[constructor] ~ view1(sf::FloatRect(centerx, centery, width, height)) 
+		-> Sets in which point of map the user is gonna see, also the size of the rectangle shown.
+		<view>.zoom(float factor) -> Zooms in or out; if factor > 1 = zoom out, if less then zooms in
+		<view>.rotate(degrees) -> Relative rotating to actual rotation
+		<view>.setRotation(degrees) -> Absolute rotating
+        <view>.setCenter(x,y) -> Center of view
+        <view>.setPosition(x,y) -> Pos
+        <RenderWindow>.setView(<view>) -> Activates view
+        <view>.setViewport(sf::FloatRect(x,y,width,height) -> Sets the part of screen occupied by view
+
+
+	Shape functions:
+		<shape>.setFillColor(sf::Color(100,250,50)) -> Fill color
+		<shape>.setOutlineThickness(10.f) -> Sets outer line thickness
+		<shape>.setOutlineColor(sf::Color(250,150,100)) -> Sets outline color
+		<shape>.setTexture(&<texture>) -> Sets a texture to the shape
+		<shape>.setTextureRect(sf::IntRect(10,10,100,100)) -> Sets an specific part (rectangle) of the texture
+		[window.draw(<shape>)]
+	----------------------------------------------------------
+	Rectangle:
+		sf::RectangleShape rectangle(sf::Vector2f(120.f, 50.f)) -> 120x50 rectangle
+		<rectangle>.setSize(sf::Vector2f(100.f,100.f)) -> Change size to 100x100
+	----------------------------------------------------------
+	Circles:
+		sf::CircleShape circle(200.f) -> 200 radius circle declaration
+		<circle>.setRadius(40.f) -> Change radius to 40 
+		<circle>.setPointCount(100) -> Change the number of sides(points) to 100, to obtain any other polygon shape
+	----------------------------------------------------------
+	To obtain regular polygons, you must declare a circle with a defined number of sides:
+		sf::CircleShape triangle(80.f, 3) -> 3 side triangle (obvious)
+					(80.f, 4) -> Square
+	----------------------------------------------------------
+	Convex polygons must be defined through its vertixes:
+		sf::ConvexShape convex;
+		convex.setPointCount(5) -> Number of vertixes/sides the polygon has
+		convex.setPoint(0, sf::Vector2f(0.f, 0.f)) -> Defines where is the first point
+		convex.setPoint(1, sf::Vector2f(150.f, 150.f)) -> Second
+		... [Points must be defined clock or counter-clockwise]
+		convex.setPoint(4, sf::Vector2f(0.f,50.f)) -> Last point
+	----------------------------------------------------------
+	Lines: Are rectangles without a border
+		sf::RectangleShape line(sf::Vector2f(150.f,5.f))
+
+    
+    sf::Vertex functions -> Primitive = several vertices (figure):
+        sf::VertexArray triangle(sf::Triangles [Points, Lines, LineStrip, TriangleStrip, TriangleFan, Quads], 3) -> Defines an array of vertices
+        triangle[0].position = sf::Vector2f(10.f,10.f) -> Defines the position of every vertex individually 
+        ...
+        triangle[2].position = sf::Vector2f(100.f,100.f)
+        triangle[0].color = sf::Color::Green -> Changing vertex color and create gradient
+        [window.draw(triangle)]
+        triangle[0].texCoords = sf::Vector2f(0.f,0.f)
+        ...                                             -> Sets coords to set texture on vertex array
+        triangle[1].texCoords = sf::Vector2f(25.f, 0.f)
+
+
+    Game structure:
+        class Game
+        {
+            public:
+            Game();
+            void run();
+            
+            private:
+            void processEvents(); -> Capture input from user
+            void update(); -> Update changes depending on user input
+            void render(); -> Show everything on screen //mwindow.clear(); mwindow.draw(whatever); mwindow.display();
+            sf::Renderwindow mwindow;
+        };
+
+    User input:
+        sf::Event event
+        while(mwindow.pollEvent(event))
+        {
+            switch(event.type) {...}
+            [case sf::Event::KeyPressed; sf::Event::KeyReleased; sf::Event::Closed
+     
+    Asset, resource containers and displayers:
+    	sf::Font -> sf::Text
+    	sf::SoundBuffer -> sf::Sound
+    	sf::Music //Music is unified, no lightweight object
+    	sf::Texture -> sf::Sprite
+    	sf::Image
+        
+    
+	
+
+
+
+
+
+
+
+
+
