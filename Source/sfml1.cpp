@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Player.h"
-#include "World1.h"
+#include "World.h"
 using namespace std;
 
 int scrX = 1200;
@@ -13,7 +13,7 @@ sf::RenderWindow window(sf::VideoMode(scrX, scrY), "Lucas running"); //Creates w
 class Game
 {
 public:
-	Player* lucas = new Player("lsheet.png", 10, 10, sf::Vector2u(4,4));
+	Player* lucas = new Player("Resources/Sprites/lsheet.png", 10, 10, sf::Vector2u(4,4));
 
 	sf::Time timer;
 	World world;

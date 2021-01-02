@@ -10,7 +10,7 @@ public:
   sf::Texture tbackground;
   sf::Sprite background;
   sf::RectangleShape area;
-  void initBackground(int x0 = 0, int y0 = 0, int w = scrX, int h = scrY);
+  void initBackground(string path, int x0 = 0, int y0 = 0, int w = scrX, int h = scrY);
   sf::View wview;
 private:
   sf::View prepareView();

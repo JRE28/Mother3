@@ -93,10 +93,8 @@ float Player::animate(int dir, float stime, float dtime)
 
   if(dtime >= stime)
   {
-    cout << stime << endl;
     dtime-= stime;
 
-    cout << stime << endl;
     currentimage.x = xa;
 
     if(xa < imagecount.x -1)
