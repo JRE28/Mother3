@@ -9,7 +9,7 @@ World::World()
   wview = prepareView();
 }
 
-void World::initBackground(string path, int x0, int y0, int w, int h)
+void World::setBackground(string path, int x0, int y0, int w, int h)
 {
   tbackground.loadFromFile(path);
   tbackground.setRepeated(true);

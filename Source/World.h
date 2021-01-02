@@ -1,6 +1,6 @@
 #ifndef WORLD_H
 #define WORLD_H
-
+using namespace std;
 class World
 {
 public:
@@ -10,7 +10,7 @@ public:
   sf::Texture tbackground;
   sf::Sprite background;
   sf::RectangleShape area;
-  void initBackground(string path, int x0 = 0, int y0 = 0, int w = scrX, int h = scrY);
+  void setBackground(string path, int x0, int y0, int w, int h);
   sf::View wview;
 private:
   sf::View prepareView();

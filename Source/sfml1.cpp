@@ -150,7 +150,7 @@ private:
 	{
 		cancelInput();
 		lucas->currentimage = sf::Vector2u(1,1);
-		world.initBackground();
+		world.setBackground("Resources/Maps/TazSheriff.png",0,0,scrX,scrY);
 		window.setView(world.wview);
 
 	}
